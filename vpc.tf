@@ -8,7 +8,14 @@ module "vpc" {
   private_subnets = ["10.0.50.0/24", "10.0.60.0/24"]
   public_subnets  = ["10.0.70.0/24", "10.0.80.0/24"]
 
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
+  }
 
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = 1
+  }
+  
   enable_nat_gateway = true
 
   tags = {
