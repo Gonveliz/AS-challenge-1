@@ -1,0 +1,38 @@
+apiVersion: "datadoghq.com/v2alpha1"
+kind: "DatadogAgent"
+metadata:
+  name: "datadog"
+spec:
+  global:
+    clusterName: "challenge-eks"
+    registry: "public.ecr.aws/datadog"
+    site: "us5.datadoghq.com"
+    tags:
+      - "env:dev"
+    kubelet:
+      tlsVerify: false
+    credentials:
+      apiSecret:
+        secretName: "datadog-secret"
+        keyName: "api-key"
+  features:
+    logCollection:
+      enabled: true
+      containerCollectAll: true
+    apm:
+      enabled: true
+      hostPortConfig:
+        enabled: true
+        hostPort: 8126
+      unixDomainSocketConfig:
+        path: /var/run/datadog/apm.socket
+    admissionController:
+      enabled: true
+      agentCommunicationMode: service
+
+  override:
+    nodeAgent:
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
