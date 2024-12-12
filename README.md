@@ -54,6 +54,7 @@ Para desplegar y/o actualizar la infraestructura deberemos realizar los siguient
    `terraform plan`
 4. Inspeccionar los cambios y aceptarlos una vez verificados
 5. Validar Apply complete!
+   
 ![Apply complete!](/assets/apply_completed.png)
 
 ## Mantenimiento
